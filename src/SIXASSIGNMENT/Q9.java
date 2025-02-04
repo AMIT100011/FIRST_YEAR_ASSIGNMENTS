@@ -12,17 +12,27 @@ public class Q9 {
 
     private static void Password(String str) {
         char ch;str = str.toLowerCase();
-        if(str.length() < 8) return;
-        int numcount = 0;
-        for (int i = 0; i < str.length() ; i++) {
-            if(str.charAt(i) >= 'a' && str.charAt(i) <= 'z'){
-                if(str.charAt(i) >= 0 && str.charAt(i) <= 9){
-                    System.out.println("Valid Password");
-                }
-                else{
-                    System.out.println("Invalid password");
-                }
-            }
+        if(str.length() < 8) {
+            System.out.println("invalid password");
+            return;
         }
+        int c = 0;
+        for (int i = 0; i < str.length() ; i++) {
+            if(!((str.charAt(i) >= 'a') && (str.charAt(i) <= 'z') || (str.charAt(i) >= 'A') && (str.charAt(i) <= 'Z') ||(str.charAt(i) >= '0') && (str.charAt(i) <= '9')))
+            {
+                System.out.println("Invalid password");
+                return;
+            }
+            }
+        for (int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) >='0' && str.charAt(i)<='9'){
+                c++;
+        }
+        }
+        if (c<2){
+            System.out.println("inValid Password");
+            return;
+        }
+        System.out.println("valid password");
     }
 }
