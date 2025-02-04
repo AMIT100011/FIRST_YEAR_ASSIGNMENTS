@@ -14,7 +14,7 @@ public class Q1 {       // amicable
                 sum1 += i;
             }
         }
-        for (int j = 1; j < x ; j++) {
+        for (int j = 1; j < y ; j++) {
             if (y % j == 0){
                 sum2 += j;
             }
