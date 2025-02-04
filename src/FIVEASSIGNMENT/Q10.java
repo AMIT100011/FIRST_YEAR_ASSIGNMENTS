@@ -12,9 +12,9 @@ public class Q10 {
        while(i <= n) {
             sum = a + b + c;
             System.out.print(sum + " ");
-           c = sum;
-           b = c;
-           a = b;
+            a = b;
+            b = c;
+            c = sum;
             i++;
 
         }
