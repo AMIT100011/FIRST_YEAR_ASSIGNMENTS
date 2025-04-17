@@ -1,37 +1,48 @@
-public class Q17 {
+public class RearrangeArray {
 
-    static void partition(int[] arr, int first, int last, int k) {
-        // Base condition
-        if (first >= last) {
+    // Recursive function to rearrange elements
+    public static void rearrange(int[] A, int k, int start, int end) {
+        // Base case: when pointers cross
+        if (start >= end) {
             return;
         }
 
-        // Swap if left is greater than k and right is less than or equal to k
-        if (arr[first] > k && arr[last] <= k) {
-            int temp = arr[first];
-            arr[first] = arr[last];
-            arr[last] = temp;
-            partition(arr, first + 1, last - 1, k);
-        }
+        if (A[start] <= k) {
+            // Element at start is in correct place
+            rearrange(A, k, start + 1, end);
+        } else if (A[end] > k) {
+            // Element at end is in correct place
+            rearrange(A, k, start, end - 1);
+        } else {
+            // Swap A[start] and A[end]
+            int temp = A[start];
+            A[start] = A[end];
+            A[end] = temp;
 
-        // Move left pointer if value is <= k
-        if (arr[first] <= k) {
-             partition(arr, first + 1, last, k);
+            // Continue recursion
+            rearrange(A, k, start + 1, end - 1);
         }
-
-        // Move right pointer if value is > k
-       partition(arr, first, last - 1, k);
     }
 
-    public static void main(String[] args) {
-        int[] arr = {3, 1, 2, 9, 8, 5, 6};
-        int k = 4;
-
-       partition(arr, 0, arr.length - 1, k);
-
-        System.out.println("Partitioned array around k = " + k + ":");
-        for (int num : arr) {
+    // Utility function to print the array
+    public static void printArray(int[] A) {
+        for (int num : A) {
             System.out.print(num + " ");
         }
+        System.out.println();
+    }
+
+    // Driver method
+    public static void main(String[] args) {
+        int[] A = {12, 3, 5, 8, 10, 2, 15, 6};
+        int k = 6;
+
+        System.out.println("Original array:");
+        printArray(A);
+
+        rearrange(A, k, 0, A.length - 1);
+
+        System.out.println("Rearranged array:");
+        printArray(A);
     }
 }
