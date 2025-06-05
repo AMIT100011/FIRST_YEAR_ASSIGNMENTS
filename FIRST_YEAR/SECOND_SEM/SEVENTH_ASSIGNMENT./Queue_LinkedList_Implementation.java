@@ -14,35 +14,34 @@ public class QueueDemo2 {
         Node newNode = new Node();
         newNode.info = x;
         newNode.next = null;
-        if (front == null) {
+
+        if (front == null && rear == null) {
+            // First element
             front = rear = newNode;
         } else {
             rear.next = newNode;
             rear = newNode;
         }
-        System.out.println(x + " inserted successfully.");
-        return front; // we update front outside and maintain rear using wrapper
+
+        return front;
     }
 
     public static Node delete(Node rear, Node front) {
         if (front == null) {
-            System.out.println("Queue is Empty! Deletion not possible.");
+            System.out.println("Queue is empty. Cannot delete.");
         } else {
             System.out.println("Deleted element: " + front.info);
             front = front.next;
-            if (front == null) {
-                rear = null;
-            }
         }
         return front;
     }
 
-    public static void display(Node front) {
+    public static void display(Node rear, Node front) {
         if (front == null) {
-            System.out.println("Queue is Empty!");
+            System.out.println("Queue is empty.");
         } else {
-            System.out.print("Queue Elements: ");
             Node temp = front;
+            System.out.print("Queue elements: ");
             while (temp != null) {
                 System.out.print(temp.info + " ");
                 temp = temp.next;
@@ -52,6 +51,7 @@ public class QueueDemo2 {
     }
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         Node rear = null, front = null;
 
@@ -63,41 +63,30 @@ public class QueueDemo2 {
             System.out.println("3: Display");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
+
             switch (choice) {
                 case 0:
                     System.exit(0);
+
                 case 1:
-                    if (front == null && rear == null) {
-                        Node newNode = new Node();
-                        System.out.print("Enter the element to insert: ");
-                        newNode.info = sc.nextInt();
-                        newNode.next = null;
-                        front = rear = newNode;
-                        System.out.println(newNode.info + " inserted successfully.");
-                    } else {
-                        Node newNode = new Node();
-                        System.out.print("Enter the element to insert: ");
-                        newNode.info = sc.nextInt();
-                        newNode.next = null;
-                        rear.next = newNode;
-                        rear = newNode;
-                        System.out.println(newNode.info + " inserted successfully.");
+                    front = insert(rear, front);
+                    if (rear == null) rear = front;  // sync rear if it was null
+                    else {
+                        Node temp = front;
+                        while (temp.next != null) temp = temp.next;
+                        rear = temp;
                     }
                     break;
+
                 case 2:
-                    if (front == null) {
-                        System.out.println("Queue is Empty! Deletion not possible.");
-                    } else {
-                        System.out.println("Deleted element: " + front.info);
-                        front = front.next;
-                        if (front == null) {
-                            rear = null;
-                        }
-                    }
+                    front = delete(rear, front);
+                    if (front == null) rear = null;  // if queue is empty, reset rear too
                     break;
+
                 case 3:
-                    display(front);
+                    display(rear, front);
                     break;
+
                 default:
                     System.out.println("Wrong choice");
             }
